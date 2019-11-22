@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Runs</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <a th:href="@{/}" >Back</a>
+        <h1>Runs</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th width="20%">Peli</th>
+                    <th width="20%">Aika</th>
+                    <th width="20%">Suorittaja</th>
+                    <th width="20%">Pisteet</th>
+                </tr>
+            </thead>
+
+            <tbody th:each="run : ${runs}">
+                <tr>
+                    <td style="text-align:center" width="20%" th:text="${run.game.name}"></td>
+                    <td style="text-align:center" width="20%" th:text="${run.completionTimeInSec}"></td>
+                    <td style="text-align:center" width="20%" th:text="${run.player.name}"></td>
+                    <td style="text-align:center" width="20%" th:text="${run.points}"></td>
+                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}">Poista</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

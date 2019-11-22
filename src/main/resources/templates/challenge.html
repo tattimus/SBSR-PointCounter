@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Challenge!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <a th:href="@{/}">back</a>
+        <h1>Haaste</h1>
+        <form action="/challenge" method="POST" >
+            <label>Voittaja:</label>
+            <select name="win">
+                <option selected disabled hidden style='display: none' value=''></option>
+                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">
+                </option>
+            </select>
+            <label>Häviäjä:</label>
+            <select name="los">
+                <option selected disabled hidden style='display: none' value=''></option>
+                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">
+                </option>
+            </select>
+            <br>
+            <input type="submit" value="Lisää"/>
+        </form>
+    </body>
+</html>

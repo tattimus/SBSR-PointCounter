@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <a th:href="@{/}" >back</a>
+    <head>
+        <title th:text="${player.name}" ></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1 th:text="${player.name}"></h1>
+        <form action="/player/delete" method="GET" >
+            <input type="hidden" name="id" th:value="${player.id}"/>
+            <input type="submit" value="Poista">
+        </form>
+        <h2>Pisteet: <span th:text="${player.points}" /></h2>
+        <h2>Runit:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th width="30%">Peli</th>
+                    <th width="30%">Aika</th>
+                    <th width="30%">Pisteet</th>
+                </tr>
+            </thead>
+
+            <tbody th:each="run : ${runs}">
+                <tr>
+                    <td style="text-align:center" th:text="${run.game.name}"></td>
+                    <td style="text-align:center" th:text="${run.completionTimeInSec}"></td>
+                    <td style="text-align:center" th:text="${run.points}"></td>
+                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}">Poista</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

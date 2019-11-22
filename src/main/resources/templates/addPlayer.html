@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add player</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <a th:href="@{/}">Back</a>
+        <h1>Lisää osallistuja</h1>
+        <form th:action="@{/player}" method="POST">
+            <input type="text" name="name"/>
+            <input type="submit" value="Lisää"/>
+        </form>
+    </body>
+</html>
