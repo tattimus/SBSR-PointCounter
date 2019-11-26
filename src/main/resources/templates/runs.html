@@ -8,7 +8,7 @@
     <body>
         <a th:href="@{/}" >Back</a>
         <h1>Runs</h1>
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th width="20%">Peli</th>
@@ -21,10 +21,10 @@
             <tbody th:each="run : ${runs}">
                 <tr>
                     <td style="text-align:center" width="20%" th:text="${run.game.name}"></td>
-                    <td style="text-align:center" width="20%" th:text="${run.completionTimeInSec}"></td>
+                    <td style="text-align:center" width="20%" th:with="mins=${run.completionTimeInSec / 60}, secs=${run.completionTimeInSec - mins * 60}" th:text="${mins +'m '+ secs +'s'}"></td>
                     <td style="text-align:center" width="20%" th:text="${run.player.name}"></td>
                     <td style="text-align:center" width="20%" th:text="${run.points}"></td>
-                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}">Poista</a></td>
+                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Poista suoritus?')">Poista</a></td>
                 </tr>
             </tbody>
         </table>

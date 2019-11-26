@@ -17,7 +17,7 @@
             <input type="submit" value="Lisää"/>
         </form>
         <h2>Pelit:</h2>
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th width="30%">Nimi</th>
@@ -29,9 +29,9 @@
             <tbody th:each="game : ${games}">
                 <tr>
                     <td style="text-align:center" width="30%" th:text="${game.name}"></td>
-                    <td style="text-align:center" width="30%" th:text="${game.parTimeInSec}"></td>
+                    <td style="text-align:center" width="30%" th:with="mins=${game.parTimeInSec / 60}, secs=${game.parTimeInSec - mins * 60}" th:text="${mins +'m '+ secs +'s'}"></td>
                     <td style="text-align:center" width="30%" th:text="${game.description}"></td>
-                    <td><a th:href="@{/games/delete/{id}(id=${game.id})}">Poista</a></td>
+                    <td><a th:href="@{/games/delete/{id}(id=${game.id})}" onclick="return confirm('Poista ?')">Poista</a></td>
                 </tr>
             </tbody>
         </table>

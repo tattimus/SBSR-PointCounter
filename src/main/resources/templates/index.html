@@ -11,10 +11,10 @@
         <a th:href="@{/addPlayer}" >Lisää pelaaja</a>
         <a th:href="@{/challenge}" >Haaste</a>
         <h1>Osallistujat</h1>
-        <table>
+        <table border="1">
             <thead>
                 <tr>
-                    <th width="30%">Nimi</th>
+                    <th style="text-align:left" width="30%">Nimi</th>
                     <th width="30%">Pisteet</th>
                     <th width="30%">Kerroin</th>
                 </tr>
@@ -27,26 +27,28 @@
                     <td style="text-align:center" th:text="${player.multiplier}"></td>
                 </tr>
             </tbody>
-        </table>
+        </table><br>
+        <form th:action="@{/players/reset}" method="GET">
+            <input type="submit" value="Nollaa pelaajat"/>
+        </form>
         <h2>Uusi suoritus</h2>
         <form th:action="@{/runs}" method="POST">
-            <label>Osallistuja:</label>
+            <label>Osallistuja</label><br>
             <select name="player">
                 <option selected disabled hidden style='display: none' value=''></option>
                 <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">
                 </option>
-            </select>
-            <label>Peli:</label>
+            </select><br><br>
+            <label>Peli</label><br>
             <select name="game">
                 <option selected disabled hidden style='display: none' value=''></option>
                 <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">
                 </option>
             </select><br>
             <br>
-            <label>Aika</label><br>
-            <label>Min:</label>
-            <input type="number" name="minutes">
-            <label>Sek:</label>
+            <label>Min</label><br>
+            <input type="number" name="minutes"><br><br>
+            <label>Sek</label><br>
             <input type="number" name="seconds"><br><br>
             <input type="submit" value="Lisää"/>
         </form>
