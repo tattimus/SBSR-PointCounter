@@ -1,5 +1,6 @@
 package sbsrcounter.sbsrcounter;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,5 +40,18 @@ public class GameController {
         Game g = gr.getOne(id);
         gr.delete(g);
         return "redirect:/games";
+    }
+    
+    @GetMapping("/games/{id}")
+    public String showGame(Model model, @PathVariable Long id, @RequestParam(required = false) Double multiplier) {
+        double mult = 1.0;
+        if (multiplier != null) {
+            mult = multiplier;
+        }
+        Game g = gr.getOne(id);
+        model.addAttribute("game", g);
+        model.addAttribute("timeTiers", g.countPointTiers(mult));
+        model.addAttribute("defaultMult", mult);
+        return "game";
     }
 }
