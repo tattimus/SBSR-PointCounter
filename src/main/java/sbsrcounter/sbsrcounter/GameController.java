@@ -42,6 +42,7 @@ public class GameController {
         return "redirect:/games";
     }
     
+    // show game specific page, contains basic info of the game and form for calculating point tiers
     @GetMapping("/games/{id}")
     public String showGame(Model model, @PathVariable Long id, @RequestParam(required = false) Double multiplier) {
         double mult = 1.0;
