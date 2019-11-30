@@ -10,16 +10,16 @@
         <h1 th:text="${player.name}"></h1>
         <form action="/player/delete" method="GET" >
             <input type="hidden" name="id" th:value="${player.id}"/>
-            <input type="submit" value="Poista" onclick="return confirm('Poista osallistuja?')">
+            <input type="submit" value="Delete" onclick="return confirm('Delete Player')">
         </form>
-        <h2>Pisteet: <span th:text="${player.points}" /></h2>
-        <h2>Runit:</h2>
+        <h2>Points: <span th:text="${player.points}" /></h2>
+        <h2>Runs:</h2>
         <table border="1">
             <thead>
                 <tr>
-                    <th width="30%">Peli</th>
-                    <th width="30%">Aika</th>
-                    <th width="30%">Pisteet</th>
+                    <th width="30%">Game</th>
+                    <th width="30%">Time</th>
+                    <th width="30%">Points</th>
                 </tr>
             </thead>
 
@@ -28,7 +28,7 @@
                     <td style="text-align:center" th:text="${run.game.name}"></td>
                     <td style="text-align:center" th:text="${run.completionTimeInSec}"></td>
                     <td style="text-align:center" th:text="${run.points}"></td>
-                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Poista suoritus?')">Poista</a></td>
+                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Poista suoritus?')">Delete</a></td>
                 </tr>
             </tbody>
         </table>

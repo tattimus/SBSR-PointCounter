@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <a th:href="@{/games}" >Pelit</a>
-        <a th:href="@{/runs}" >Runit</a>
-        <a th:href="@{/addPlayer}" >Lisää pelaaja</a>
-        <a th:href="@{/challenge}" >Haaste</a>
-        <h1>Osallistujat</h1>
+        <a th:href="@{/games}" >Games</a>
+        <a th:href="@{/runs}" >Runs</a>
+        <a th:href="@{/addPlayer}" >Add player</a>
+        <a th:href="@{/challenge}" >Challenge</a>
+        <h1>Participants</h1>
         <table border="1">
             <thead>
                 <tr>
-                    <th style="text-align:left" width="30%">Nimi</th>
-                    <th width="30%">Pisteet</th>
-                    <th width="30%">Kerroin</th>
+                    <th style="text-align:left" width="30%">Name</th>
+                    <th width="30%">Points</th>
+                    <th width="30%">Multiplier</th>
                 </tr>
             </thead>
 
@@ -29,17 +29,17 @@
             </tbody>
         </table><br>
         <form th:action="@{/players/reset}" method="GET">
-            <input type="submit" value="Nollaa pelaajat"/>
+            <input type="submit" value="Reset players"/>
         </form>
-        <h2>Uusi suoritus</h2>
+        <h2>New run</h2>
         <form th:action="@{/runs}" method="POST">
-            <label>Osallistuja</label><br>
+            <label>Player</label><br>
             <select name="player">
                 <option selected disabled hidden style='display: none' value=''></option>
                 <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">
                 </option>
             </select><br><br>
-            <label>Peli</label><br>
+            <label>Game</label><br>
             <select name="game">
                 <option selected disabled hidden style='display: none' value=''></option>
                 <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">
@@ -48,7 +48,7 @@
             <br>
             <label>Min</label><br>
             <input type="number" name="minutes"><br><br>
-            <label>Sek</label><br>
+            <label>Sec</label><br>
             <input type="number" name="seconds"><br><br>
             <input type="submit" value="Lisää"/>
         </form>

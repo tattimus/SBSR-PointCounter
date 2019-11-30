@@ -7,22 +7,22 @@
     </head>
     <body>
         <a th:href="@{/}">back</a>
-        <h1>Haaste</h1>
+        <h1>Challenge</h1>
         <form action="/challenge" method="POST" >
-            <label>Voittaja:</label>
+            <label>Winner:</label>
             <select name="win">
                 <option selected disabled hidden style='display: none' value=''></option>
                 <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">
                 </option>
             </select>
-            <label>Häviäjä:</label>
+            <label>Loser:</label>
             <select name="los">
                 <option selected disabled hidden style='display: none' value=''></option>
                 <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}">
                 </option>
             </select>
             <br>
-            <input type="submit" value="Lisää"/>
+            <input type="submit" value="Add"/>
         </form>
     </body>
 </html>

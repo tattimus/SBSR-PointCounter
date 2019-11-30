@@ -11,10 +11,10 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th width="20%">Peli</th>
-                    <th width="20%">Aika</th>
-                    <th width="20%">Suorittaja</th>
-                    <th width="20%">Pisteet</th>
+                    <th width="20%">Game</th>
+                    <th width="20%">Time</th>
+                    <th width="20%">Player</th>
+                    <th width="20%">Points</th>
                 </tr>
             </thead>
 
@@ -24,7 +24,7 @@
                     <td style="text-align:center" width="20%" th:with="mins=${run.completionTimeInSec / 60}, secs=${run.completionTimeInSec - mins * 60}" th:text="${mins +'m '+ secs +'s'}"></td>
                     <td style="text-align:center" width="20%" th:text="${run.player.name}"></td>
                     <td style="text-align:center" width="20%" th:text="${run.points}"></td>
-                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Poista suoritus?')">Poista</a></td>
+                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Delete run?')">Delete</a></td>
                 </tr>
             </tbody>
         </table>
