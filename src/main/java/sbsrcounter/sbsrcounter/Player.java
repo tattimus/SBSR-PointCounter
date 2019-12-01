@@ -29,7 +29,9 @@ public class Player extends AbstractPersistable<Long> {
     public void fixMultiplier() {
         Double d = 1.0;
         for (Run run : runs) {
-            d = updateMultiplier(d, run.getPoints());
+            if (run.isCurrent() == true) {
+                d = updateMultiplier(d, run.getPoints());
+            }
         }
         this.multiplier = d;
     }
@@ -47,5 +49,15 @@ public class Player extends AbstractPersistable<Long> {
             updated = 1.0;
         }
         return updated;
+    }
+    
+    public void updateCurrentPoints() {
+        int sum = 0;
+        for (Run run : runs) {
+            if (run.isCurrent()== true) {
+                sum += run.getPoints();
+            }
+        }
+        points = sum;
     }
 }

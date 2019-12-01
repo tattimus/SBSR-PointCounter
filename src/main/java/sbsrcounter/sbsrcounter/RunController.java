@@ -37,7 +37,7 @@ public class RunController {
         Run deleted = rr.getOne(id);
         Player p = pr.getOne(deleted.getPlayer().getId());
         p.getRuns().remove(deleted);
-        p.setPoints(p.getPoints() - deleted.getPoints());
+        p.updateCurrentPoints();
         p.fixMultiplier();
         pr.save(p);
         Game g = gr.getOne(deleted.getGame().getId());
@@ -60,30 +60,43 @@ public class RunController {
             Run run = new Run();
             run.setGame(gr.getOne(game));
             run.setPlayer(pr.getOne(player));
+            run.setCurrent(true);
             // Completion time to seconds
             int time = 60 * minutes + seconds;
             run.setCompletionTimeInSec(time);
             // Count runs points
             int points = countPointsOfRun(gr.getOne(game), pr.getOne(player), time);
+            run.setPoints(points);
             // Update player
             Player p = pr.getOne(player);
-            p.setPoints(p.getPoints() + points);
             p.getRuns().add(run);
-            run.setPoints(points);
             // Update and save run and player
             rr.save(run);
             p.fixMultiplier();
+            p.updateCurrentPoints();
             pr.save(p);
             return "redirect:/";
         } catch (Exception e) {
             return "redirect:/";
         }
     }
+    
+    @GetMapping("/runs/toggleCurrent/{id}")
+    public String toggleRunsRelevancy(@PathVariable Long id) {
+        Run run = rr.getOne(id);
+        Player player = run.getPlayer();
+        run.setCurrent(!run.isCurrent());
+        rr.save(run);
+        player.fixMultiplier();
+        player.updateCurrentPoints();
+        pr.save(player);
+        return "redirect:/runs";
+    }
 
     /* 
     *  Real par time is player.multiplier * game.partime. For every 10% overtime
     *  1 point is lost
-    */
+     */
     public int countPointsOfRun(Game game, Player player, int completionTime) {
         int parTime = game.getParTimeInSec();
         int points;

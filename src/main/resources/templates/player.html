@@ -17,18 +17,20 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th width="30%">Game</th>
-                    <th width="30%">Time</th>
-                    <th width="30%">Points</th>
+                    <th>Game</th>
+                    <th>Time</th>
+                    <th>Points</th>
+                    <th>Relevant</th>
                 </tr>
             </thead>
 
             <tbody th:each="run : ${runs}">
                 <tr>
                     <td style="text-align:center" th:text="${run.game.name}"></td>
-                    <td style="text-align:center" th:text="${run.completionTimeInSec}"></td>
+                    <td style="text-align:center" th:with="mins=${run.completionTimeInSec / 60}, secs=${run.completionTimeInSec - mins * 60}" th:text="${mins +'m '+ secs +'s'}"></td>
                     <td style="text-align:center" th:text="${run.points}"></td>
-                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Poista suoritus?')">Delete</a></td>
+                    <td style="text-align:center"><a th:href="@{/runs/toggleCurrent/{id}(id=${run.id})}"><span th:text="${run.current} ? 'yes' : 'no'" /></a></td>
+                    <td><a th:href="@{/runs/delete/{id}(id=${run.id})}" onclick="return confirm('Delete run?')">Delete</a></td>
                 </tr>
             </tbody>
         </table>

@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Run extends AbstractPersistable<Long> {
     private int completionTimeInSec;
     private int points;
+    private boolean current;
     @ManyToOne
     private Player player;
     @ManyToOne
