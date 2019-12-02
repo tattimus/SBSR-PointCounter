@@ -22,10 +22,15 @@ public class Player extends AbstractPersistable<Long> {
     private int points;
     // multiplier affecting next runs time limit
     private double multiplier;
+    // if player loses challenge -> decreased, if wins -> increased
+    private int challengeBalance;
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<Run> runs = new ArrayList<>();
 
-    // count multiplier from completed runs, used after deleting/adding runs
+    /*
+    * count multiplier from completed runs, used after deleting/adding runs.
+    * Only current runs are counted
+    */
     public void fixMultiplier() {
         Double d = 1.0;
         for (Run run : runs) {
@@ -51,8 +56,9 @@ public class Player extends AbstractPersistable<Long> {
         return updated;
     }
     
+    // count points from runs, challengeBalance is noted, only current runs counted
     public void updateCurrentPoints() {
-        int sum = 0;
+        int sum = challengeBalance;
         for (Run run : runs) {
             if (run.isCurrent()== true) {
                 sum += run.getPoints();

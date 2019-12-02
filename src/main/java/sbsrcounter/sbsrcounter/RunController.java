@@ -81,6 +81,7 @@ public class RunController {
         }
     }
     
+    // set run to not current state, update player points and multiplier
     @GetMapping("/runs/toggleCurrent/{id}")
     public String toggleRunsRelevancy(@PathVariable Long id) {
         Run run = rr.getOne(id);

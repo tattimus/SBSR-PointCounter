@@ -32,6 +32,7 @@ public class PlayerController {
         newPlayer.setName(name);
         newPlayer.setPoints(0);
         newPlayer.setMultiplier(1);
+        newPlayer.setChallengeBalance(0);
         pr.save(newPlayer);
         return "redirect:/";
     }
@@ -66,10 +67,13 @@ public class PlayerController {
         return "redirect:/";
     }
 
-    // reset all players to default values, not name
+    /*
+    * reset all challengeBalances to 0, name not affected, points and multipliers
+    * can be reset by making all players runs non relevant/current
+    */
     @Transactional
     @GetMapping("/players/reset")
-    public String resetPlayerPointsAndMultiplier() {
+    public String resetPlayers() {
         List<Player> players = pr.findAll();
         for (Player p : players) {
             resetPlayer(p);
@@ -80,8 +84,10 @@ public class PlayerController {
     // move half of the losers points to the winner and save players to DB
     public void challengePointSwap(Player winner, Player loser) {
         int price = loser.getPoints() / 2;
-        loser.setPoints(loser.getPoints() / 2);
-        winner.setPoints(winner.getPoints() + price);
+        loser.setChallengeBalance(loser.getChallengeBalance() - price);
+        winner.setChallengeBalance(winner.getChallengeBalance() + price);
+        loser.updateCurrentPoints();
+        winner.updateCurrentPoints();
         pr.save(winner);
         pr.save(loser);
     }
@@ -89,8 +95,7 @@ public class PlayerController {
     // reset points and multiplier to default and save
     @Transactional
     public void resetPlayer(Player p) {
-        p.setMultiplier(1);
-        p.setPoints(0);
+        p.setChallengeBalance(0);
         pr.save(p);
     }
 }
